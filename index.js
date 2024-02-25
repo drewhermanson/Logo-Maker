@@ -3,13 +3,15 @@ const Square = require('./lib/shapes').Square;
 const Circle = require('./lib/shapes').Circle;
 
 const inquirer = require('inquirer');
+const MaxLengthInputPrompt = require('inquirer-maxlength-input-prompt')
 const fs = require('fs');
 
 inquirer.prompt([
     {
-        type: `input`,
+        type: `maxlength-input`,
         message: `Enter 3 characters for your logo`,
-        name: `logo`
+        name: `logo`,
+        maxLength: 3
     },
     {
         type: `input`,
@@ -37,15 +39,24 @@ inquirer.prompt([
     if (shape === `Triangle`) {
         let triangle = new Triangle(logo, textColor, shapeColor);
         triangle.render();
+
+        fs.writeFile(`logo.svg`, triangle.render(), function (err) {
+            err ? console.log(err) : console.log(`Generated logo.svg!`)
+        })
+        
     } else if (shape === `Square`) {
         let square = new Square(logo, textColor, shapeColor);
         square.render();
+
+        fs.writeFile(`logo.svg`, square.render(), function (err) {
+            err ? console.log(err) : console.log(`Generated logo.svg!`)
+        })
+
     } else {
         let circle = new Circle(logo, textColor, shapeColor);
-        circle.render();
-    }
 
-    fs.writeFile(`./logos/logo.svg`, logo, function (err) {
-        err ? console.log(err) : console.log(`Generated logo.svg!`)
-    })
+        fs.writeFile(`logo.svg`, circle.render(), function (err) {
+            err ? console.log(err) : console.log(`Generated logo.svg!`)
+        })
+    }
 });
