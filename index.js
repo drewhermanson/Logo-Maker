@@ -1,17 +1,24 @@
 const Triangle = require('./lib/shapes').Triangle;
 const Square = require('./lib/shapes').Square;
 const Circle = require('./lib/shapes').Circle;
-
 const inquirer = require('inquirer');
-const MaxLengthInputPrompt = require('inquirer-maxlength-input-prompt')
 const fs = require('fs');
+//imports for the 3 shape classes, inquirer for the prompt, and fs for writing the logo.svg file.
 
+//inquirer prompts that ask for the logo, text color, shape, and shape color in that order.
 inquirer.prompt([
     {
-        type: `maxlength-input`,
+        type: `input`,
         message: `Enter 3 characters for your logo`,
         name: `logo`,
-        maxLength: 3
+        //validate method checks if the input for the inquirer prompt is 3 characters or less before moving on to the next prompt.
+        validate: function (input) {
+            if (input.length <= 3) {
+                return true;
+            } else {
+                return "Logo must be 3 characters or less.";
+            }
+        }
     },
     {
         type: `input`,
@@ -31,29 +38,23 @@ inquirer.prompt([
     },
 ])
 .then(function (answers) {
-    let logo = answers.logo;
-    let textColor = answers.textColor;
-    let shape = answers.shape;
-    let shapeColor = answers.shapeColor;
-
-    if (shape === `Triangle`) {
-        let triangle = new Triangle(logo, textColor, shapeColor);
-        triangle.render();
+    //if statements that check for the shape. Then creates a new object based on what shape it is. Finally using the render method it writes the svg to file.
+    if (answers.shape === `Triangle`) {
+        let triangle = new Triangle(answers.logo, answers.textColor, answers.shapeColor);
 
         fs.writeFile(`logo.svg`, triangle.render(), function (err) {
             err ? console.log(err) : console.log(`Generated logo.svg!`)
         })
         
-    } else if (shape === `Square`) {
-        let square = new Square(logo, textColor, shapeColor);
-        square.render();
+    } else if (answers.shape === `Square`) {
+        let square = new Square(answers.logo, answers.textColor, answers.shapeColor);
 
         fs.writeFile(`logo.svg`, square.render(), function (err) {
             err ? console.log(err) : console.log(`Generated logo.svg!`)
         })
 
     } else {
-        let circle = new Circle(logo, textColor, shapeColor);
+        let circle = new Circle(answers.logo, answers.textColor, answers.shapeColor);
 
         fs.writeFile(`logo.svg`, circle.render(), function (err) {
             err ? console.log(err) : console.log(`Generated logo.svg!`)
