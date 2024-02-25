@@ -7,6 +7,7 @@ This application allows the user to follow a series of prompts that will then cr
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+- [Tests](#tests)
 - [License](#license)
 - [Questions](#questions)
 
@@ -35,6 +36,19 @@ You will then find a file called "logo.svg" within the same directory where you 
 The following is an example logo that was created using this application which can also be found within the assets folder of this repository under assets/sameple-logo.svg.
 
 ![example readme](assets/example-logo.svg)
+
+## Tests
+This application can be tested by entering "npm test" into the command line. There are two tests for each of the three shapes triangle, square, and circle.
+<br></br>
+The first test per object checks if its created the correct object with the correct color
+<br></br>
+The second test per object checks if its createde with the correct text color and the corresponding text inputted by the user.
+<br></br>
+Below is an example of a user going using the test command.
+
+![example test](assets/test%20demo.gif)
+
+
 
 ## License
 This project is licensed under the MIT license.
