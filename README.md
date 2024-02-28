@@ -42,7 +42,7 @@ This application can be tested by entering "npm test" into the command line. The
 <br></br>
 The first test per object checks if its created the correct object with the correct color
 <br></br>
-The second test per object checks if its createde with the correct text color and the corresponding text inputted by the user.
+The second test per object checks if its created with the correct text color and the corresponding text inputted by the user.
 <br></br>
 Below is an example of a user going using the test command.
 
